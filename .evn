@@ -1,0 +1,9 @@
+PORT=10000
+
+AI_GEN_API_KEY=XPepEjLz5dPAGOVhJOFtonLmkdiJ7Kvi
+REMOVE_BG_API_KEY=wiWi6fCY5LSZn8aNN1MMeq18
+UPSCALE_API_KEY=254639321844368
+
+AI_GEN_ENDPOINT=https://api.runware.ai/v1/image/generate/
+REMOVE_BG_ENDPOINT=https://api.remove.bg/v1.0/removebg/
+UPSCALE_ENDPOINT=https://api.cloudinary.com/v1_1/myphotos123/
