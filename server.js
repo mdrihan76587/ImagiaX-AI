@@ -4,6 +4,7 @@ const multer = require("multer");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const fs = require("fs");
+const FormData = require("form-data");
 
 dotenv.config();
 
@@ -13,29 +14,34 @@ app.use(express.static("."));
 
 const upload = multer({ dest: "uploads/" });
 
-// Upscale endpoint
+const RUNWARE_API_KEY = process.env.RUNWARE_API_KEY;
+const RUNWARE_API_URL = "https://api.runware.io/v1/upscale"; // Runware image upscale endpoint
+
 app.post("/upscale", upload.single("image"), async (req, res) => {
   try {
-    const apiKey = process.env.RUNWARE_API_KEY;
-    const imagePath = req.file.path;
+    const file = req.file;
 
-    const response = await fetch("https://api.runware.ai/v1/upscale", {
+    const formData = new FormData();
+    formData.append("image", fs.createReadStream(file.path));
+
+    const response = await fetch(RUNWARE_API_URL, {
       method: "POST",
-      headers: { "X-Api-Key": apiKey },
-      body: fs.createReadStream(imagePath),
+      headers: {
+        "Authorization": `Bearer ${RUNWARE_API_KEY}`
+      },
+      body: formData
     });
 
     const buffer = await response.buffer();
-    fs.unlinkSync(imagePath);
+    fs.unlinkSync(file.path);
 
     res.set("Content-Type", "image/png");
     res.send(buffer);
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Error processing image");
+    console.error("Runware API Error:", err);
+    res.status(500).send("Error processing image with Runware API");
   }
 });
 
-// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
