@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Image Upscaler</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>AI Image Upscaler</h1>
+    <p>Upload your image and see the magic — Before & After!</p>
+
+    <div class="upload-section">
+      <input type="file" id="uploadInput" accept="image/*">
+      <button id="processBtn">Process Image</button>
+    </div>
+
+    <div class="preview-box" id="previewBox">
+      <div class="preview">
+        <h3>Before</h3>
+        <img id="beforeImage" src="" alt="">
+      </div>
+      <div class="preview">
+        <h3>After</h3>
+        <img id="afterImage" src="" alt="">
+      </div>
+    </div>
+
+    <div class="download-section">
+      <button id="downloadBtn" style="display: none;">Download Upscaled Image</button>
+    </div>
+
+    <p class="footer">Powered by Remove.bg API</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
