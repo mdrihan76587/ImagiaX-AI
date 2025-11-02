@@ -1,9 +1,9 @@
-import express from "express";
-import fetch from "node-fetch";
-import multer from "multer";
-import dotenv from "dotenv";
-import cors from "cors";
-import fs from "fs";
+const express = require("express");
+const fetch = require("node-fetch");
+const multer = require("multer");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const fs = require("fs");
 
 dotenv.config();
 
@@ -16,10 +16,10 @@ const upload = multer({ dest: "uploads/" });
 // Upscale endpoint
 app.post("/upscale", upload.single("image"), async (req, res) => {
   try {
-    const apiKey = process.env.REMOVE_BG_API_KEY;
+    const apiKey = process.env.RUNWARE_API_KEY;
     const imagePath = req.file.path;
 
-    const response = await fetch("https://api.remove.bg/v1.0/removebg", {
+    const response = await fetch("https://api.runware.ai/v1/upscale", {
       method: "POST",
       headers: { "X-Api-Key": apiKey },
       body: fs.createReadStream(imagePath),
